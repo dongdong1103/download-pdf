@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content=" no-cache" >
+    <meta http-equiv="expires" content="0" >
+    <title>Document</title>
+    <style type="text/css">
+		.content-body {
+			width: 800px;
+			margin: 0 auto;
+			padding-bottom: 30px;
+			color: rgb(0, 0, 0);
+			font-family: Calibri, sans-serif;
+			font-size: 12px;
+			line-height: 18px;
+			box-sizing: border-box;
+			background-color: rgb(255, 255, 255);
+		}
+		.content-body table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		.content-body
+			> table
+			> tbody
+			> tr:not(.content-body-title)
+			> td:first-of-type {
+			padding-left: 40px;
+		}
+		.content-body
+			> table
+			> tbody
+			> tr:not(.content-body-title)
+			> td:last-of-type {
+			padding-right: 40px;
+		}
+		.content-body * {
+			padding: 0;
+			margin: 0;
+		}
+		.content-body ul {
+			list-style-type: none;
+		}
+		.content-body-table tr th:not(:last-of-type),
+		.content-body-table tr td:not(:last-of-type) {
+			border-right: 1px solid #c4cbd7;
+		}
+		.content-body-table tr th {
+			background-color: #eee;
+		}
+		.content-body-table tr th,
+		.content-body-table tr td {
+			border-bottom: 1px solid #c4cbd7;
+		}
+		.content-body-table tr:last-of-type td {
+			border-bottom: 2px solid #8590a4;
+			margin-bottom: 20px;
+		}
+		.content-body-table p {
+			padding: 8px;
+		}
+		.content-body-table_signature {
+			border: 1px solid #ccc;
+			padding-bottom: 20px;
+		}
+		.content-body-table_signature {
+			border: 1px solid #ccc;
+			padding-bottom: 20px;
+		}
+		.content-body-table_signature tr td {
+			padding-left: 8px;
+			padding-right: 8px;
+		}
+		.content-body-table_signature ul li {
+			line-height: 30px;
+		}
+		/* 下载 */
+		.downloadBar {
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			text-align: right;
+			background: rgba(220, 220, 220, 0.8);
+			border-bottom: 1px solid #999999;
+		}
+		.downloadBar-body {
+			width: 1172px;
+			margin: 0 auto;
+			padding: 5px 20px;
+		}
+		.downloadBar p {
+			display: inline-block;
+			color: #00a9ff;
+			cursor: pointer;
+			margin: 0;
+		}
+		.downloadBar p img {
+			vertical-align: middle;
+			filter: invert(10%);
+		}
+		.downloadBar p span {
+			display: inline-block;
+			line-height: 24px;
+		}
+		/* loading */
+		.download-loading {
+			display: none;
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			height: 100vh;
+			background: rgba(244, 245, 248, 0.8);
+		}
+		.download-loading-table {
+			display: table;
+			width: 100%;
+			height: 100vh;
+		}
+		.download-loading-table-cell {
+			display: table-cell;
+			vertical-align: middle;
+			margin: 0 auto;
+			text-align: center;
+		}
+		.loading {
+			display: inline-block;
+			width: 40px;
+			height: 40px;
+			border: 3px solid #00a9ff;
+			border-bottom: transparent 3px solid;
+			border-radius: 50%;
+			-webkit-animation: load 1.1s infinite linear;
+		}
+		@-webkit-keyframes load {
+			from {
+			transform: rotate(0deg);
+			}
+			to {
+			transform: rotate(360deg);
+			}
+		}
+    </style>
+  </head>
+  <body style="background: #ccc; margin: 0; position: relative">
+    <div id="download-bar" class="downloadBar">
+      <div class="downloadBar-body">
+        <p id="download">
+          <img src="./public/images/download.svg" alt="" />
+          <span>PDF</span>
+        </p>
+      </div>
+    </div>
+    <div class="download-loading" id="download-loading">
+      <div class="download-loading-table">
+        <div class="download-loading-table-cell">
+          <span class="loading"></span>
+        </div>
+      </div>
+    </div>
+    <div class="content-body"></div>
+    <script type="text/x-jsrender" id="j-pdf">
+		<table border="0" cellspacing="0" cellpadding="0" id="pdf-content">
+			<tbody>
+				<!-- {{for poetry itemVar="~item"}}
+				<tr>
+					<td>
+						{{include {"item": ~item} tmpl="#j-poetry-template"/}}
+					</td>
+				</tr>
+				{{/for}} -->
+				<tr>
+					<td colspan="2">
+						<h2 style="text-align: center; padding: 50px 0 30px;">合同</h2>
+					</td>
+				</tr>
+				<tr>
+					<td width="50%">
+						<div>
+							<h4>甲方：xxx公司</h4>
+							<p>地址： xxx省xxx市xxx路</p>
+						</div>
+					</td>
+					<td width="50%" valign="top">
+						<div>
+							<h4>乙方：xxx公司</h4>
+							<p>地址： xxx省xxx市xxx路xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<h4 style="text-align: center; padding-top: 24px;">service</h4>
+					</td>
+				</tr>
+				{{for list itemVar="~item"}}
+				<tr>
+					<td colspan="2">
+						<p style="padding: 20px 0 10px;">编号：{{:~item.id}}</p>
+						{{include {"item": ~item} tmpl="#j-service-template"/}}
+					</td>
+				</tr>
+				{{/for}}
+				<tr>
+					<td colspan="2">
+						<h4 style="text-align: center; padding: 24px 0 12px;">特殊条款</h4>
+						<ul style="padding-bottom: 20px;">
+							<li>
+								第一条：xxxxxxxxx
+							</li>
+							<li>
+								第二条：xxxxxxxxx
+							</li>
+							<li>
+								第三条：xxxxxxxxx
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="content-body-table_signature" border="0" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<td width="50%"><h4 style="padding: 24px 0 12px;" valign="top">甲方xxx公司</h4></td>
+									<td width="50%"><h4 style="padding: 24px 0 12px;" valign="top">乙方xxx公司</h4></td>
+								</tr>
+								<tr>
+									<td width="50%" style="padding-bottom: 20px;">
+										<ul>
+											<li>
+												Print Name:
+											</li>
+											<li>
+												Signature:
+											</li>
+											<li>
+												Date:
+											</li>
+										</ul>
+									</td>
+									<td width="50%" style="padding-bottom: 20px;">
+										<ul>
+											<li>
+												Print Name:
+											</li>
+											<li>
+												Signature:
+											</li>
+											<li>
+												Date:
+											</li>
+										</ul>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+    </script>
+    <script src="./public/js/jquery-3.5.1.min.js"></script>
+    <script src="./public/js/jsrender.min.js"></script>
+    <script src="./public/js/html2canvas2.js"></script>
+    <script src="./public/js/jspdf.js"></script>
+    <script src="./public/js/downloadPdf.js"></script>
+    <script type="text/x-jsrender" id="j-poetry-template">
+		<div>
+			<h3>{{:item.title}}</h3>
+			<p>{{:item.author}}</p>
+			<ul>
+				{{for item.detail}}
+					<li>{{:}}</li>
+				{{/for}}
+			</ul>
+		</div>
+	</script>
+	<script type="text/x-jsrender" id="j-service-template">
+		<table class="content-body-table" border="0" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th align="center" style="padding: 8px;">id</th>
+					<th align="center" style="padding: 8px;">name</th>
+					<th align="center" style="padding: 8px;">qty</th>
+					<th align="center" style="padding: 8px;" width="100">description</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{for item.service}}
+				<tr>
+					<td><p>{{:id}}</p></td>
+					<td><p>{{:name}}</p></td>
+					<td><p>{{:qty}}</p></td>
+					<td><p>{{:description}}</p></td>
+				</tr>
+				{{/for}}
+			</tbody>
+		</table>
+	</script>
+    <script type="text/javascript">
+      // 模版引擎方法
+      $.views.helpers({
+        htmlPdfLang: function (val, lang = "cn") {
+          return list[lang][val];
+        },
+      });
+      $.views.converters({});
+
+        function getJson(res) {
+			//获取模板
+			jsRenderTpl = $.templates('#j-pdf'),
+			//模板与数据结合
+			finalTpl = jsRenderTpl(res);
+			$('.content-body').html(finalTpl);
+			// 下载
+			$("#download").click(function () {
+				with (plugin) {
+					/**
+					 * ID：下载dom id
+					 * lang： 语言
+					 * name：下载pdf名称
+					 */
+					pdfDownload({
+					id: "pdf-content",
+					name: res.id,
+					});
+				}
+			})
+		}
+	</script>
+	<script src="./public/data.json?callback=getJson"></script>
+  </body>
+</html>
